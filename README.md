@@ -68,6 +68,8 @@ Para a resolução deste desafio, esperamos que você desenvolva uma API Rest qu
 
 Você pode usar qualquer framework de backend para a resolução do problema.
 
+(Exemplo de frameworks: Express, AdonisJS, NestJS)
+
 ## :eyes: &nbsp;Avaliação 
 
 ![](./docs/avaliacao.gif)
