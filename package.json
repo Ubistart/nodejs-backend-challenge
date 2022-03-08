@@ -3,9 +3,6 @@
 	"version": "1.0.0",
 	"description": "Desafio técnico para backend em NodeJS da Ubistart!!",
 	"main": "src/server.js",
-	"directories": {
-		"doc": "docs"
-	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon",
@@ -16,8 +13,7 @@
 		"seed:create": "knex seed:make",
 		"docker:rm": "docker rm challenge",
 		"docker:stop": "docker stop challenge",
-		"docker:run": "docker run -d -p 5436:5432 --name challenge -e POSTGRES_HOST_AUTH_METHOD=trust postgres:12-alpine",
-		"database:create": "docker exec challenge psql -U postgres postgres -c \"CREATE DATABASE challenge\""
+		"docker:run": "docker run -d -p 5432:5432 --name challenge -e POSTGRES_HOST_AUTH_METHOD=trust postgres:12-alpine"
 	},
 	"repository": {
 		"type": "git",
