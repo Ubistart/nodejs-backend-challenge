@@ -7,7 +7,17 @@
 		"doc": "docs"
 	},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon",
+		"migration:run": "knex migrate:latest",
+		"migration:create": "knex migrate:make",
+		"migration:revert": "knex migrate:rollback",
+		"seed:run": "knex seed:run",
+		"seed:create": "knex seed:make",
+		"docker:rm": "docker rm challenge",
+		"docker:stop": "docker stop challenge",
+		"docker:run": "docker run -d -p 5436:5432 --name challenge -e POSTGRES_HOST_AUTH_METHOD=trust postgres:12-alpine",
+		"database:create": "docker exec challenge psql -U postgres postgres -c \"CREATE DATABASE challenge\""
 	},
 	"repository": {
 		"type": "git",

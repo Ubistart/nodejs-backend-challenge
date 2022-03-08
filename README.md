@@ -1,7 +1,9 @@
 # Como Rodar o Projeto
 
-# Decisões tomadas
-
+# Decisões de Projeto
+## Gitflow
+- Optei por utilizar o gitflow, pois trará algumas vantagens na hora de fazer o desenvolvimento, como um maior controle em cada task em que estarei trabalhando.
+- Todo o projeto ficará na branch "main", teremos uma branch de homologação e testes, chamada "hml" e as demais branchs serão as que vou trabalhar em cada task em especifico.
 ## Configrando ambiente
 
 Optei por instalar as dependencias que eu mais utilizo em meus projetos
@@ -29,3 +31,10 @@ Optei por instalar as dependencias que eu mais utilizo em meus projetos
 - O "jsonwebtoken" para criar tokens de acesso
 
 - O "eslint" para me auxiliar a identificar e gerenciar erros de projeto
+## Ferramentas utlizadas
+- O editor de código utilizado é o VS Code
+- Utilizarei containers docker para poder manter o servidor de banco de dados ativo
+- Todos os testes serão feitos com o postman
+- Inicialmente, estarei utilizando o DBeaver para rodar o banco de dados postgrees, porém, ao longo do projeto, serão substituidos pelo MySQL e o MySql Workbanch
+## Outras Informações
+- Estarei utilizando migrations e seeds para criar o banco e popular com informações
