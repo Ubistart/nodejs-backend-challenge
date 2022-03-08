@@ -4,4 +4,8 @@ function encryptPassword(password) {
 	return bcrypt.hash(password, 10);
 }
 
-module.exports = { encryptPassword }
+function comparePasswords(firstPass, secondPass) {
+	return bcrypt.compare(firstPass, secondPass);
+}
+
+module.exports = { encryptPassword, comparePasswords };
