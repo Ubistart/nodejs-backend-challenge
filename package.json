@@ -1,0 +1,49 @@
+{
+	"name": "nodejs-backend-challenge",
+	"version": "1.0.0",
+	"description": "Desafio técnico para backend em NodeJS da Ubistart!!",
+	"main": "src/server.js",
+	"directories": {
+		"doc": "docs"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon",
+		"migration:run": "knex migrate:latest",
+		"migration:create": "knex migrate:make",
+		"migration:revert": "knex migrate:rollback",
+		"seed:run": "knex seed:run",
+		"seed:create": "knex seed:make",
+		"docker:rm": "docker rm challenge",
+		"docker:stop": "docker stop challenge",
+		"docker:run": "docker run -d -p 5436:5432 --name challenge -e POSTGRES_HOST_AUTH_METHOD=trust postgres:12-alpine",
+		"database:create": "docker exec challenge psql -U postgres postgres -c \"CREATE DATABASE challenge\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Gabriel-Mayan/nodejs-backend-challenge.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Gabriel-Mayan/nodejs-backend-challenge/issues"
+	},
+	"homepage": "https://github.com/Gabriel-Mayan/nodejs-backend-challenge#readme",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^14.3.2",
+		"express": "^4.17.2",
+		"nodemon": "^2.0.14",
+		"pg": "^8.7.1",
+		"knex": "^1.0.1",
+		"uuid": "^8.3.2",
+		"yup": "^0.32.11",
+		"bcrypt": "^5.0.1",
+		"date-fns": "^2.28.0",
+		"jsonwebtoken": "^8.5.1",
+		"eslint": "^8.4.1",
+		"eslint-plugin-import": "^2.25.3",
+		"eslint-config-airbnb-base": "^15.0.0"
+	}
+}
