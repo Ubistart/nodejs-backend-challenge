@@ -5,4 +5,9 @@ const insertInfo = async (table, values) => {
 	return insertedInfo[0];
 };
 
-module.exports = { insertInfo };
+const findOneBy = async (table, conditons) => {
+	const info = await knex(table).where(conditons).first();
+	return info;
+};
+
+module.exports = { insertInfo, findOneBy };
