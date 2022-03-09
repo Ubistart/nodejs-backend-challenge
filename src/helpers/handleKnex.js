@@ -10,4 +10,9 @@ const findOneBy = async (table, conditons) => {
 	return info;
 };
 
-module.exports = { insertInfo, findOneBy };
+const updateInfo = async (table, conditions, values) => {
+	const info = await knex(table).where(conditions).update(values).returning('*');
+	return info;
+}
+
+module.exports = { insertInfo, findOneBy, updateInfo };
