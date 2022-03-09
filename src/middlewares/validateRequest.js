@@ -1,19 +1,27 @@
-const validateRequest = (req) => async (request, response, next) => {
+const validateRequest = (schema) => async (request, response, next) => {
 	try {
-		if (req) { await req.validate(request); }
+		if (req) { await schema.validate(request); }
 		next();
 	} catch (error) {
 		return response.status(500).json(error.message);
 	}
 };
 
-const validateBody = (body) => async (request, response, next) => {
+const validateBody = (schema) => async (request, response, next) => {
 	try {
-		if (body) { await body.validate(request.body); }
+		if (body) { await schema.validate(request.body); }
 		next();
 	} catch (error) {
 		return response.status(500).json(error.message);
 	}
 };
 
-module.exports = { validateRequest, validateBody };
+const validateParams = (schema) => async (request, response, next) => {
+	try {
+		await schema.validate(request.params);
+		next();
+	} catch (error) {
+		return response.status(500).json(error.message);
+	}
+};
+module.exports = { validateRequest, validateBody, validateParams };

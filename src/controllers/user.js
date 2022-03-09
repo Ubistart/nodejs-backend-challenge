@@ -2,9 +2,9 @@ const { insertInfo } = require('../helpers/handleKnex');
 const { generateUuid } = require('../helpers/handleUuid');
 const { encryptPassword } = require('../helpers/handlePassword');
 
-const createUser = async (requst, response) => {
+const createUser = async (request, response) => {
 	try {
-		const { email, password } = requst.body;
+		const { email, password } = request.body;
 		const encryptedPassword = await encryptPassword(password);
 
 		const newUser = {
