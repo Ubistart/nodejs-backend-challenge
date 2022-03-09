@@ -5,4 +5,9 @@ function generateToken(info) {
 	return token;
 }
 
-module.exports = { generateToken };
+async function validateToken(tkn) {
+	const token = await jwt.verify(tkn, process.env.JWT_SECRET);
+	return token;
+}
+
+module.exports = { generateToken, validateToken };
