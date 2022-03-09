@@ -1,6 +1,6 @@
 const { addTime } = require('../helpers/handleDate');
-const { insertInfo } = require('../helpers/handleKnex');
 const { generateUuid } = require('../helpers/handleUuid');
+const { insertInfo, findOneBy } = require('../helpers/handleKnex');
 
 const createTask = async (requst, response) => {
 	try {
@@ -25,4 +25,35 @@ const createTask = async (requst, response) => {
 	}
 }
 
-module.exports = { createTask };
+async function updateTask(user, transaction) {
+	const { user } = requst;
+	const { taskId } = requst.params;
+	const { description, deadline, completed } = requst.body;
+
+	const taskInfo = findOneBy('task', { id: taskId });
+
+	if (!taskInfo)
+		return response.status(400).json('Task inexistente')
+
+	if (taskInfo.userId !== user.id)
+		return response.status(400).json('Tarefa não pertence a este usuario')
+
+	if (taskInfo.completedAt)
+		return response.status(400).json('Não é possível editar uma tarefa concluída')
+
+	const now = new Date();
+
+	const updatedTask = {
+		id: taskId,
+		description,
+		updatedAt: now,
+		completedAt: completed ? now : null
+	};
+
+	if (deadline) {
+
+	}
+
+}
+
+module.exports = { createTask, updateTask };
