@@ -46,42 +46,49 @@ const finalizeTask = async (request, response) => {
 		const taskCompleted = await updateInfo('task', conditions, { updatedAt: now, completedAt: now })
 
 		if (!taskCompleted)
-			return response.status(200).json('Falha ao atualizar a tarefa');
+			return response.status(200).json('Falha ao completar a tarefa');
 
 		return response.status(200).json(taskCompleted);
+	} catch (error) {
+		return response.status(400).json('Falha ao completar a tarefa')
+	}
+}
+
+async function updateTask(user, transaction) {
+	try {
+		const { id } = request.params;
+		const { id: userId } = request.user;
+		const { description, deadline } = request.body;
+		const conditions = { id, userId };
+
+		const task = await findOneBy('task', conditions)
+
+		if (!task)
+			return response.status(200).json('Tarefa inexistente ou não partence ao usuario');
+
+		if (task.completedAt)
+			return response.status(200).json('Não é possível editar tarefas já concluídas');
+
+		if (task.deletedAt)
+			return response.status(200).json('Não é possível editar tarefas excluidas');
+
+		const now = new Date();
+
+		const editedTask = {
+			description,
+			deadline: addTime(now, deadline),
+			updatedAt: now,
+		};
+
+		const taskEdited = await updateInfo('task', conditions, editedTask)
+
+		if (!taskEdited)
+			return response.status(200).json('Falha ao atualizar a tarefa');
+
+		return response.status(200).json(taskEdited);
 	} catch (error) {
 		return response.status(400).json('Falha ao atualizar a tarefa')
 	}
 }
-async function updateTask(user, transaction) {
-	const { user } = requst;
-	const { taskId } = requst.params;
-	const { description, deadline, completed } = requst.body;
 
-	const taskInfo = findOneBy('task', { id: taskId });
-
-	if (!taskInfo)
-		return response.status(400).json('Task inexistente')
-
-	if (taskInfo.userId !== user.id)
-		return response.status(400).json('Tarefa não pertence a este usuario')
-
-	if (taskInfo.completedAt)
-		return response.status(400).json('Não é possível editar uma tarefa concluída')
-
-	const now = new Date();
-
-	const updatedTask = {
-		id: taskId,
-		description,
-		updatedAt: now,
-		completedAt: completed ? now : null
-	};
-
-	if (deadline) {
-
-	}
-
-}
-
-module.exports = { createTask, finalizeTask };
+module.exports = { createTask, finalizeTask, updateTask };

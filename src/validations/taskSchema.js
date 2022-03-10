@@ -38,7 +38,7 @@ const createTaskSchema = yup.object().shape({
 		})
 });
 
-const finalizeTaskSchema = yup.object().shape({
+const testParamsSchema = yup.object().shape({
 	id: yup
 		.string()
 		.strict()
@@ -46,4 +46,4 @@ const finalizeTaskSchema = yup.object().shape({
 		.required()
 });
 
-module.exports = { createTaskSchema, finalizeTaskSchema }
+module.exports = { createTaskSchema, testParamsSchema }
