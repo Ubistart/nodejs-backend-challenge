@@ -11,9 +11,9 @@
 		"migration:revert": "knex migrate:rollback",
 		"seed:run": "knex seed:run",
 		"seed:create": "knex seed:make",
-		"docker:rm": "docker rm challenge",
-		"docker:stop": "docker stop challenge",
-		"docker:run": "docker run -d -p 5432:5432 --name challenge -e POSTGRES_HOST_AUTH_METHOD=trust postgres:12-alpine"
+		"docker:rm": "docker rm database_challenge",
+		"docker:stop": "docker stop database_challenge",
+		"docker:run": "docker run --name database_challenge -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0"
 	},
 	"repository": {
 		"type": "git",
@@ -27,19 +27,19 @@
 	},
 	"homepage": "https://github.com/Gabriel-Mayan/nodejs-backend-challenge#readme",
 	"dependencies": {
-		"cors": "^2.8.5",
-		"dotenv": "^14.3.2",
-		"express": "^4.17.2",
-		"nodemon": "^2.0.14",
-		"pg": "^8.7.1",
-		"knex": "^1.0.1",
-		"uuid": "^8.3.2",
-		"yup": "^0.32.11",
 		"bcrypt": "^5.0.1",
+		"cors": "^2.8.5",
 		"date-fns": "^2.28.0",
-		"jsonwebtoken": "^8.5.1",
+		"dotenv": "^14.3.2",
 		"eslint": "^8.4.1",
+		"eslint-config-airbnb-base": "^15.0.0",
 		"eslint-plugin-import": "^2.25.3",
-		"eslint-config-airbnb-base": "^15.0.0"
+		"express": "^4.17.2",
+		"jsonwebtoken": "^8.5.1",
+		"knex": "^1.0.1",
+		"mysql2": "^2.3.3",
+		"nodemon": "^2.0.14",
+		"uuid": "^8.3.2",
+		"yup": "^0.32.11"
 	}
 }
