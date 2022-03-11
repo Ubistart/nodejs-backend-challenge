@@ -1,10 +1,17 @@
-# Como Rodar o Projeto
-
+# Configurando Ambiente
+## Docker e Conexão com o banco
+- Com o Docker Desktop rodando, abra o powershell como administrador e faça o pull da imagem: docker pull mysql
+- Rode o comando no terminal do projeto "docker:run"
+- Abra o Dbeaver
+- Adicione uma conexão com o DB MySQL.
+- Na tela Connect to a DataBase, escreva na caixa de Server Host localhost, em DataBase coloque mysql e em password coloque a senha (123456).
+- Em alguns casos é necessário habilitar a public key retrival, basta apenas ir no "Driver properties" e mudar a chave "allowPublicKeyRetrieval" de false para TRUE 
+- Selecione Test Connection, baixe o driver JDBC (caso necessário) e, por fim, o banco de dados está criado
 # Decisões de Projeto
 ## Gitflow
 - Optei por utilizar o gitflow, pois trará algumas vantagens na hora de fazer o desenvolvimento, como um maior controle em cada task em que estarei trabalhando.
 - Todo o projeto ficará na branch "main", teremos uma branch de homologação e testes, chamada "hml" e as demais branchs serão as que vou trabalhar em cada task em especifico.
-## Configrando ambiente
+## API's de suporte
 
 Optei por instalar as dependencias que eu mais utilizo em meus projetos
 
