@@ -8,6 +8,10 @@ async function login(request, response) {
 		const { email, password } = request.body;
 
 		const registeredUser = await findOneBy('users', { email });
+
+		if (!registeredUser)
+			return response.status(400).json('Usuário ou senha inválidos');
+
 		const verifiedPassword = await comparePasswords(password, registeredUser.password);
 
 		if (!verifiedPassword)

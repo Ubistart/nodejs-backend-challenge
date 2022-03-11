@@ -17,7 +17,7 @@ Optei por instalar as dependencias que eu mais utilizo em meus projetos
 
 - Optei pelo framework "express"
 
-- O "cors" irá auxiliar a fazer a conversação com o frontend
+- O "cors" irá auxiliar a fazer a conversação com o frontend, caso necessário
 
 - O "dotenv" me ajudará a utilizar as variaveis de ambientes
 

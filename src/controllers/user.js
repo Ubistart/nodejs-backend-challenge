@@ -7,21 +7,16 @@ const createUser = async (request, response) => {
 		const { email, password } = request.body;
 		const encryptedPassword = await encryptPassword(password);
 
-		const newUser = {
+		await insertInfo('users', {
 			id: generateUuid(email),
 			email,
 			userType: 'user',
 			password: encryptedPassword,
-		}
-
-		const insertedUser = insertInfo('users', newUser)
-
-		if (!insertedUser)
-			return response.status(400).json('Falha ao cadastrar usuario')
+		});
 
 		return response.status(200).json('Usuario cadastrado com sucesso!')
 	} catch (error) {
-		return response.status(400).json('Falha ao criar usuario')
+		return response.status(400).json('Falha ao cadastrar usuario')
 	}
 }
 
