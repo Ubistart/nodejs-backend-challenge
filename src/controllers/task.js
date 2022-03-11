@@ -7,17 +7,12 @@ const createTask = async (request, response) => {
 		const { user } = request;
 		const { description, deadline } = request.body;
 
-		const newTask = {
+		await insertInfo('task', {
 			id: generateUuid(description),
 			userId: user.id,
 			description,
 			deadline: addTime(new Date(), deadline),
-		};
-
-		const insertedTask = await insertInfo('task', newTask);
-
-		if (!insertedTask)
-			return response.status(400).json('Falha ao criar tarefa');
+		});
 
 		return response.status(200).json('Tarefa cadastrada com sucesso!');
 	} catch (error) {
@@ -44,16 +39,13 @@ const finalizeTask = async (request, response) => {
 
 		const taskCompleted = await updateInfo('task', conditions, { completedAt: new Date() })
 
-		if (!taskCompleted)
-			return response.status(200).json('Falha ao completar a tarefa');
-
 		return response.status(200).json(taskCompleted);
 	} catch (error) {
 		return response.status(400).json('Falha ao completar a tarefa')
 	}
 }
 
-async function updateTask(user, transaction) {
+async function updateTask(request, response) {
 	try {
 		const { id } = request.params;
 		const { id: userId } = request.user;
@@ -71,15 +63,10 @@ async function updateTask(user, transaction) {
 		if (task.deletedAt)
 			return response.status(200).json('Não é possível editar tarefas excluidas');
 
-		const editedTask = {
+		const taskEdited = await updateInfo('task', conditions, {
 			description,
 			deadline: addTime(new Date(), deadline),
-		};
-
-		const taskEdited = await updateInfo('task', conditions, editedTask)
-
-		if (!taskEdited)
-			return response.status(200).json('Falha ao atualizar a tarefa');
+		});
 
 		return response.status(200).json(taskEdited);
 	} catch (error) {

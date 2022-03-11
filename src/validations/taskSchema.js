@@ -11,13 +11,9 @@ const createTaskSchema = yup.object().shape({
 		.strict()
 		.required()
 		.test('equals', `É necessário adcionar um prazo para tarefa`, (date) => {
-			const testDays = Object.keys(date.days).length === 0;
-			const testHours = Object.keys(date.hours).length === 0;
-			const testMinutes = Object.keys(date.minutes).length === 0;
-
-			if (testDays && testHours && testMinutes)
-				return true;
-			return false;
+			const valuesToTest = [date.days, date.hours, date.minutes];
+			const test = valuesToTest.every(test => test === 0);
+			return !test;
 		})
 		.shape({
 			days: yup
