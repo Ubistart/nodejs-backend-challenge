@@ -1,6 +1,6 @@
 const validateRequest = (schema) => async (request, response, next) => {
 	try {
-		if (req) { await schema.validate(request); }
+		await schema.validate(request);
 		next();
 	} catch (error) {
 		return response.status(500).json(error.message);
@@ -9,7 +9,7 @@ const validateRequest = (schema) => async (request, response, next) => {
 
 const validateBody = (schema) => async (request, response, next) => {
 	try {
-		if (body) { await schema.validate(request.body); }
+		await schema.validate(request.body);
 		next();
 	} catch (error) {
 		return response.status(500).json(error.message);
