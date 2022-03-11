@@ -42,8 +42,7 @@ const finalizeTask = async (request, response) => {
 		if (task.deletedAt)
 			return response.status(200).json('Não é possível completar tarefas excluidas');
 
-		const now = new Date();
-		const taskCompleted = await updateInfo('task', conditions, { updatedAt: now, completedAt: now })
+		const taskCompleted = await updateInfo('task', conditions, { completedAt: new Date() })
 
 		if (!taskCompleted)
 			return response.status(200).json('Falha ao completar a tarefa');
@@ -59,8 +58,8 @@ async function updateTask(user, transaction) {
 		const { id } = request.params;
 		const { id: userId } = request.user;
 		const { description, deadline } = request.body;
-		const conditions = { id, userId };
 
+		const conditions = { id, userId };
 		const task = await findOneBy('task', conditions)
 
 		if (!task)
@@ -72,12 +71,9 @@ async function updateTask(user, transaction) {
 		if (task.deletedAt)
 			return response.status(200).json('Não é possível editar tarefas excluidas');
 
-		const now = new Date();
-
 		const editedTask = {
 			description,
-			deadline: addTime(now, deadline),
-			updatedAt: now,
+			deadline: addTime(new Date(), deadline),
 		};
 
 		const taskEdited = await updateInfo('task', conditions, editedTask)

@@ -11,7 +11,7 @@ const findOneBy = async (table, conditons) => {
 };
 
 const updateInfo = async (table, conditions, values) => {
-	const info = await knex(table).where(conditions).update(values).returning('*');
+	const info = await knex(table).where(conditions).update({ values, ...updatedAt = new Date() }).returning('*');
 	return info;
 }
 
