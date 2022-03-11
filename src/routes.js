@@ -5,10 +5,11 @@ const { createTask, finalizeTask, updateTask } = require('./controllers/task');
 
 const { loginSchema } = require('./validations/loginSchema');
 const { createUserSchema } = require('./validations/userSchema');
-const { createTaskSchema, testParamsSchema } = require('./validations/taskSchema')
+const { createTaskSchema, updateTaskSchema } = require('./validations/taskSchema');
+const { testParamsSchema, checkEmptyRequestSchema } = require('./validations/genericSchema');
 
 const authentication = require('./middlewares/authentication');
-const { validateBody, validateParams } = require('./middlewares/validateRequest');
+const { validateBody, validateParams, validateRequest } = require('./middlewares/validateRequest');
 
 const routes = Router();
 
@@ -18,7 +19,7 @@ routes.post('/login', validateBody(loginSchema), login);
 routes.post('/user/create', validateBody(createUserSchema), createUser);
 
 routes.post('/task/create', authentication, validateBody(createTaskSchema), createTask);
-routes.post('/task/update/:id', authentication, validateParams(testParamsSchema), updateTask);
 routes.post('/task/finalize/:id', authentication, validateParams(testParamsSchema), finalizeTask);
+routes.post('/task/update/:id', authentication, validateRequest(checkEmptyRequestSchema), validateParams(testParamsSchema), validateBody(updateTaskSchema), updateTask);
 
 module.exports = routes;
