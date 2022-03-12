@@ -12,7 +12,7 @@ const createTaskSchema = yup.object().shape({
 		.required()
 		.test('equals', `É necessário adcionar um prazo para tarefa`, (date) => {
 			const valuesToTest = [date.days, date.hours, date.minutes];
-			const test = valuesToTest.every(test => test === 0);
+			const test = valuesToTest.every(test => test === 0 || test === undefined);
 			return !test;
 		})
 		.shape({
@@ -34,12 +34,39 @@ const createTaskSchema = yup.object().shape({
 		})
 });
 
-const testParamsSchema = yup.object().shape({
-	id: yup
+const updateTaskSchema = yup.object().shape({
+	description: yup
 		.string()
+		.strict(),
+
+	deadline: yup
+		.object()
 		.strict()
-		.uuid()
-		.required()
+		.test('equals', `É necessário adcionar um prazo para tarefa`, (date) => {
+			if (JSON.stringify(date) === '{}') {
+				const valuesToTest = [date.days, date.hours, date.minutes];
+				const test = valuesToTest.every(test => test === 0 || test === undefined);
+				return !test;
+			}
+			return true;
+		})
+		.shape({
+			days: yup
+				.number()
+				.strict()
+				.min(0)
+				.notRequired(),
+			hours: yup
+				.number()
+				.strict()
+				.min(0)
+				.notRequired(),
+			minutes: yup
+				.number()
+				.strict()
+				.min(0)
+				.notRequired()
+		})
 });
 
-module.exports = { createTaskSchema, testParamsSchema }
+module.exports = { createTaskSchema, updateTaskSchema }
