@@ -1,4 +1,3 @@
-const { addTime } = require('../helpers/handleDate');
 const { generateUuid } = require('../helpers/handleUuid');
 const { insertInfo, findOneBy, updateInfo } = require('../helpers/handleKnex');
 
@@ -11,7 +10,7 @@ const createTask = async (request, response) => {
 			id: generateUuid(description),
 			userId: user.id,
 			description,
-			deadline: addTime(new Date(), deadline),
+			deadline: new Date(deadline),
 		});
 
 		return response.status(200).json('Tarefa cadastrada com sucesso!');
@@ -65,7 +64,7 @@ async function updateTask(request, response) {
 
 		const taskEdited = await updateInfo('task', conditions, {
 			description,
-			deadline: addTime(new Date(), deadline),
+			deadline: new Date(deadline)
 		});
 
 		return response.status(200).json(taskEdited);

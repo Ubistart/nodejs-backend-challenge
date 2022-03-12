@@ -1,7 +1,5 @@
 const dateFns = require('date-fns');
 
-const addTime = (date, timeToAdd) => dateFns.add(date, timeToAdd);
+const compareDate = (date, dateToCompare) => dateFns.isBefore(date, dateToCompare);
 
-module.exports = {
-	addTime,
-};
+module.exports = { compareDate };
