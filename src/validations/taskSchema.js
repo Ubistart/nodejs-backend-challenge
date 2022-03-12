@@ -1,4 +1,5 @@
 const yup = require('yup');
+const { compareDate } = require('../helpers/handleDate');
 
 const createTaskSchema = yup.object().shape({
 	description: yup
@@ -7,30 +8,13 @@ const createTaskSchema = yup.object().shape({
 		.required(),
 
 	deadline: yup
-		.object()
+		.string()
 		.strict()
 		.required()
-		.test('equals', `É necessário adcionar um prazo para tarefa`, (date) => {
-			const valuesToTest = [date.days, date.hours, date.minutes];
-			const test = valuesToTest.every(test => test === 0 || test === undefined);
-			return !test;
-		})
-		.shape({
-			days: yup
-				.number()
-				.strict()
-				.min(0)
-				.notRequired(),
-			hours: yup
-				.number()
-				.strict()
-				.min(0)
-				.notRequired(),
-			minutes: yup
-				.number()
-				.strict()
-				.min(0)
-				.notRequired()
+		.test('equals', `Não é possível adcionar um prazo de expiração anterior ao momento atual`, (deadline) => {
+			const deadlineInDate = new Date(deadline);
+			const isValidDate = compareDate(new Date(), deadlineInDate);
+			return isValidDate;
 		})
 });
 
@@ -40,32 +24,12 @@ const updateTaskSchema = yup.object().shape({
 		.strict(),
 
 	deadline: yup
-		.object()
+		.string()
 		.strict()
-		.test('equals', `É necessário adcionar um prazo para tarefa`, (date) => {
-			if (JSON.stringify(date) === '{}') {
-				const valuesToTest = [date.days, date.hours, date.minutes];
-				const test = valuesToTest.every(test => test === 0 || test === undefined);
-				return !test;
-			}
-			return true;
-		})
-		.shape({
-			days: yup
-				.number()
-				.strict()
-				.min(0)
-				.notRequired(),
-			hours: yup
-				.number()
-				.strict()
-				.min(0)
-				.notRequired(),
-			minutes: yup
-				.number()
-				.strict()
-				.min(0)
-				.notRequired()
+		.test('equals', `Não é possível adcionar um prazo de expiração anterior ao momento atual`, (deadline) => {
+			const deadlineInDate = new Date(deadline);
+			const isValidDate = compareDate(new Date(), deadlineInDate);
+			return isValidDate;
 		})
 });
 
