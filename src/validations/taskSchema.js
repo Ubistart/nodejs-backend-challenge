@@ -27,9 +27,12 @@ const updateTaskSchema = yup.object().shape({
 		.string()
 		.strict()
 		.test('equals', `Não é possível adcionar um prazo de expiração anterior ao momento atual`, (deadline) => {
-			const deadlineInDate = new Date(deadline);
-			const isValidDate = compareDate(new Date(), deadlineInDate);
-			return isValidDate;
+			if (deadline) {
+				const deadlineInDate = new Date(deadline);
+				const isValidDate = compareDate(new Date(), deadlineInDate);
+				return isValidDate;
+			}
+			return true;
 		})
 });
 

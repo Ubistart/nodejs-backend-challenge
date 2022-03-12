@@ -36,9 +36,9 @@ const finalizeTask = async (request, response) => {
 		if (task.deletedAt)
 			return response.status(200).json('Não é possível completar tarefas excluidas');
 
-		const taskCompleted = await updateInfo('task', conditions, { completedAt: new Date() })
+		await updateInfo('task', conditions, { completedAt: new Date() })
 
-		return response.status(200).json(taskCompleted);
+		return response.status(200).json("Tarefa concluída com sucesso!");
 	} catch (error) {
 		return response.status(400).json('Falha ao completar a tarefa')
 	}
@@ -51,6 +51,8 @@ async function updateTask(request, response) {
 		const { description, deadline } = request.body;
 
 		const conditions = { id, userId };
+		const infoToUpdate = { description };
+
 		const task = await findOneBy('task', conditions)
 
 		if (!task)
@@ -62,15 +64,16 @@ async function updateTask(request, response) {
 		if (task.deletedAt)
 			return response.status(200).json('Não é possível editar tarefas excluidas');
 
-		const taskEdited = await updateInfo('task', conditions, {
-			description,
-			deadline: new Date(deadline)
-		});
+		if (deadline) {
+			infoToUpdate.deadline = new Date(deadline);
+		}
 
-		return response.status(200).json(taskEdited);
+		await updateInfo('task', conditions, infoToUpdate);
+
+		return response.status(200).json('Tarefa atualizada com sucesso!');
 	} catch (error) {
 		return response.status(400).json('Falha ao atualizar a tarefa')
 	}
 }
 
-module.exports = { createTask, finalizeTask, updateTask };
+module.exports = { createTask, finalizeTask, updateTask, getTaskFromUser };
