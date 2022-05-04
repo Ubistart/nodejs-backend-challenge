@@ -1,0 +1,53 @@
+{
+  "name": "desafio-back-end-ubistart",
+  "version": "1.0.0",
+  "description": "Bem-vindo ao desafio técnico para backend em NodeJS da Ubistart!! :raised_hands:",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "tsc && node ./build/index.js",
+    "dev": "tsnd --transpile-only --ignore-watch node_modules ./src/index.ts",
+    "build": "tsc",
+    "migrations": "tsnd ./src/data/migrations.ts",
+    "debug": "tsc && node --inspect ./build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bellacbs/Desafio-Back-End-Ubistart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bellacbs/Desafio-Back-End-Ubistart/issues"
+  },
+  "homepage": "https://github.com/bellacbs/Desafio-Back-End-Ubistart#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.5.0",
+    "@types/knex": "^0.16.1",
+    "@types/uuid": "^8.3.4",
+    "ts-jest": "^28.0.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "-": "^0.0.1",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.8",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "D": "^1.0.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "jest": "^28.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^2.0.0",
+    "mysql": "^2.18.1",
+    "supertest": "^6.2.3",
+    "uuid": "^8.3.2"
+  }
+}
